@@ -10,7 +10,9 @@ function AuthForm(props) {
 
   return (
     <section className="auth">
-      <img className="auth__img" src={logo} alt="Logo" />
+      <NavLink to="/">
+        <img className="auth__img" src={logo} alt="Logo" />
+      </NavLink>
       <h1 className="auth__title" >{props.title}</h1>
       <form className="auth__form" action="get" noValidate onSubmit={handleSubmit} >
         <h2 className={props.registration ? "form__title" : "form__none"} >Имя</h2>
@@ -23,7 +25,7 @@ function AuthForm(props) {
       <button className="auth__btn">{props.btn}</button>
       <div className="auth__caption">
         <p className="caption__title">{props.question}</p>
-        <NavLink to={props.subbtn === "Войти" ? "/signin" : "/signup" } className="caption__btn">{props.subbtn}</NavLink>
+        <NavLink to={props.subbtn === "Войти" ? "/signin" : "/signup"} className="caption__btn">{props.subbtn}</NavLink>
       </div>
     </section>
   );

@@ -1,32 +1,38 @@
 .portfolio {
   margin: 0;
   padding: 0 14px 70px;
+
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 .portfolio__title {
   margin: 0 0 20px;
   padding: 0;
-  color: #A0A0A0;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
+  color: #A0A0A0;
 }
 
 .portfolio__list {
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
 .portfolio__part {
   margin: 0;
   padding: 0;
+
   min-height: 67px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   border-bottom: 1px solid #E6E6E6;
 }
 
@@ -37,6 +43,7 @@
 .portfolio__subtitle {
   margin: 0;
   padding: 0;
+
   font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
@@ -46,9 +53,10 @@
 .portfolio__link {
   margin: 0;
   padding: 0;
-  color: #000000;
+
   font-size: 18px;
   font-weight: 400;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -59,6 +67,7 @@
 
   .portfolio__title {
     margin: 0 0 30px;
+
     font-size: 18px;
     line-height: 1.1;
   }

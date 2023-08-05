@@ -1,6 +1,7 @@
 .techs {
   margin: 0;
   padding: 70px 18px;
+
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-weight: 400;
   color: #000000;
@@ -9,6 +10,7 @@
 .techs__title {
   margin: 0 0 60px;
   padding: 0 0 28px;
+
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.72px;
@@ -18,56 +20,66 @@
 .techs__subtitle {
   margin: 0;
   padding: 0;
+
   font-size: 30px;
-  text-align: center;
-  letter-spacing: -1.2px;
   font-weight: 400;
+  letter-spacing: -1.2px;
+  text-align: center;
 }
 
 .techs__text {
   margin: 24px 0 50px;
   padding: 0;
+
   font-size: 11px;
-  text-align: center;
   line-height: 1.5;
   letter-spacing: -0.44px;
+  text-align: center;
 }
 
 .techs__list {
   margin: 0 auto;
   padding: 0;
+
   max-width: 180px;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
+
   list-style: none;
 }
 
 .techs__item {
   margin: 0;
   padding: 0;
+
   width: 84px;
   height: 57px;
-  font-size: 12px;
-  border-radius: 10px;
-  letter-spacing: -0.48px;
-  background: #E8E8E8;
-  text-align: center;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-size: 12px;
+  letter-spacing: -0.48px;
+  background: #E8E8E8;
+  border-radius: 10px;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
   .techs {
     padding: 90px 50px;
+
     background-color: #F5F5F5;
   }
 
   .techs__title {
     margin-bottom: 80px;
     padding-bottom: 23px;
+
     font-size: 22px;
     font-weight: 400;
     letter-spacing: -0.88px;
@@ -80,13 +92,16 @@
 
   .techs__text {
     margin: 22px auto 83px;
+
     max-width: 460px;
+
     font-size: 12px;
     letter-spacing: -0.48px;
   }
 
   .techs__list {
     max-width: inherit;
+
     gap: 10px;
     justify-content: center;
   }
@@ -103,6 +118,7 @@
 
   .techs__text {
     margin: 26px auto 100px;
+
     font-size: 14px;
     letter-spacing: -0.56px;
   }
@@ -110,6 +126,7 @@
   .techs__item {
     width: 90px;
     height: 60px;
+
     font-size: 14px;
     letter-spacing: -0.56px;
   }

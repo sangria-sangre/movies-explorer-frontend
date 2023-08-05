@@ -1,12 +1,14 @@
 .nav {
   margin: 0;
   padding: 0;
-  list-style-type: none;
+
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+
   font-family: 'Inter', Arial, Helvetica, sans-serif;
+  list-style-type: none;
 }
 
 .nav__disabled {
@@ -16,6 +18,7 @@
 .nav__main_link {
   margin: 0 0 0 14px;
   padding: 0;
+
   font-size: 10px;
   font-weight: 500;
   line-height: 1.6;
@@ -25,6 +28,7 @@
 
 .nav__main_signin {
   padding: 5px 12px;
+
   color: #ffffff;
   background-color: #000000;
   border-radius: 3px;
@@ -36,8 +40,10 @@
   top: 0;
   right: 0;
   bottom: 0;
-  min-height: 100%;
+
   min-width: 100%;
+  min-height: 100%;
+
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -51,16 +57,21 @@
   top: 0;
   right: 0;
   bottom: 0;
+
   margin: 0;
   padding: 0;
+
+  height: 100%;
+  min-width: 100%;
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 166px repeat(2, 22px) auto;
-  grid-row-gap: 22px;
   align-items: center;
   justify-items: center;
-  min-width: 100%;
-  height: 100%;
+  grid-row-gap: 22px;
+
+
   background-color: #ffffff;
   list-style-type: none;
 }
@@ -70,16 +81,20 @@
   z-index: 2;
   top: 18px;
   right: 18px;
+
   margin: 0;
   padding: 0;
-  height: 30px;
+
   width: 30px;
+  height: 30px;
+
   cursor: pointer;
 }
 
-.sidebar__link{
+.sidebar__link {
   margin: 0;
   padding: 0 0 4px;
+
   font-size: 18px;
   font-weight: 500;
   line-height: 1.3;
@@ -96,8 +111,10 @@
 }
 
 .sidebar__account {
-  align-self: end;
   margin-bottom: 47px;
+
+  align-self: end;
+
   display: flex;
   align-items: center;
 }
@@ -105,6 +122,7 @@
 .account__link {
   margin: 0;
   padding: 0;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 1.1;
@@ -115,11 +133,12 @@
 .account__img {
   margin: 0 0 0 17px;
   padding: 8px 7.5px;
+
   width: 11.5px;
   height: 14px;
+
   border-radius: 4px;
   background-color: #F9F9F9;
-
 }
 
 @media screen and (min-width: 768px) {
@@ -163,24 +182,27 @@
 
   .nav__login_blackout {
     position: relative;
-    background-color: rgba(0, 0, 0, 0);
     height: 74px;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   .nav__login_sidebar {
     position: relative;
-    min-width: auto;
+
     height: 74px;
+    min-width: auto;
+
     grid-template-columns: repeat(2, max-content) 130px;
     grid-template-rows: 74px;
     grid-column-gap: 20px;
     align-items: center;
     justify-items: center;
     justify-content: end;
+
     background-color: transparent;
   }
 
-  .sidebar__link{
+  .sidebar__link {
     font-size: 14px;
     font-weight: 400;
     line-height: 1.3;
@@ -197,6 +219,7 @@
 
   .sidebar__account {
     margin: 0 0 0 30px;
+
     align-self: center;
   }
 }
