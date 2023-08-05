@@ -1,0 +1,130 @@
+.profile {
+  margin: 0;
+  padding: 70px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+.profile__title {
+  margin: 0 0 70px;
+  padding: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.profile__form {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-template-rows: repeat(3, max-content);
+}
+
+.form__title {
+  margin: 0;
+  padding: 0;
+  max-height: 14px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.form__input {
+  margin: 0;
+  padding: 0;
+  max-height: 14px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: right;
+  border: none;
+}
+
+.form__input:focus {
+  outline: none;
+}
+
+.form__line {
+  padding: 0;
+  margin: 16px 0;
+  grid-column: 1/3;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.profile__btn {
+  position: absolute;
+  right: 0;
+  left: 0;
+  padding: 0;
+  margin: 0 auto;
+  font-size: 12px;
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  width: max-content;
+}
+
+.profile__btn-edit {
+  bottom: 71px;
+}
+
+.profile__btn-exit {
+  bottom: 40px;
+  color: #FF4062;
+}
+
+@media screen and (min-width: 768px) {
+  .profile {
+    padding: 236px auto 269px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+  }
+
+  .profile__title {
+    margin: 0 0 96px;
+  }
+
+
+  .profile__form {
+    width: 410px;
+    margin: 0 auto;
+  }
+
+  .profile__btn {
+    position: static;
+    font-size: 13px;
+  }
+
+  .profile__btn-edit {
+    margin: 210px 0 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile {
+    padding-top: 74p;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+  }
+
+  .profile__title {
+    margin: 0 0 123px;
+  }
+
+  .profile__btn {
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+  }
+
+  .profile__btn-edit {
+    bottom: 102px;
+  }
+
+  .profile__btn-exit {
+    bottom: 70px;
+  }
+}

@@ -1,0 +1,46 @@
+.not-found {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+.not-found__title {
+  margin: 30vh 0 5px;
+  padding: 0;
+  font-size: 80px;
+  font-weight: 400;
+}
+
+.not-found__text {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.not-found__btn {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 5%;
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .not-found__title {
+    font-size: 140px;
+  }
+
+  .not-found__text {
+    font-size: 16px;
+  }
+
+  .not-found__btn {
+    font-size: 14px;
+  }
+}
