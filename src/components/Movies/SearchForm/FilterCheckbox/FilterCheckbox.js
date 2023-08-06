@@ -18,7 +18,7 @@ function FilterCheckbox() {
 
   return (
     <div className="filter-checkbox">
-      <h2 className="filter-checkbox__title">Короткометражки</h2>
+      <h3 className="filter-checkbox__title">Короткометражки</h3>
       <div className="checkbox"  onClick={toggle}>
         <div className={`checkbox__cirqle ${toggleStatus ?
           (toggleStatus === 'start') ? "checkbox__cirqle_position-left" :

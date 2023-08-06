@@ -35,6 +35,8 @@
   margin: 0;
   padding: 0;
 
+  min-width: 260px;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -50,7 +52,7 @@
 }
 
 .form__input {
-  margin: 5px 0 24px;
+  margin: 5px 0 2px;
   padding: 0 0 10px;
 
   font-size: 14px;
@@ -65,8 +67,22 @@
   border-bottom: 1px solid #000000;
 }
 
+.form__input_error {
+  color: #FF4062;
+}
+
+.form__error {
+  margin: 0;
+  padding: 0;
+
+  height: 22px;
+
+  font-size: 10px;
+  color: #FF4062;
+}
+
 .auth__btn {
-  position: absolute;
+  position: fixed;
   bottom: 59px;
 
   margin: 0;
@@ -85,10 +101,17 @@
   background-color: #000000;
   border-radius: 3px;
   border: none;
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.auth__btn:hover {
+  opacity: 0.8;
 }
 
 .auth__caption {
   position: absolute;
+  z-index: 0;
   left: 0;
   right: 0;
   bottom: 30px;
@@ -125,7 +148,7 @@
 @media screen and (min-width: 768px) {
   .auth {
     margin: 232px auto;
-    padding: 56px 30px;
+    padding: 0;
 
     max-width: 396px;
 
@@ -143,7 +166,7 @@
   .auth__btn {
     position: static;
 
-    margin: 128px 0 16px;
+    margin: 201px 0 16px;
 
     min-width: 396px;
 
@@ -151,8 +174,13 @@
     border-radius: 3px;
   }
 
+  .auth__btn_registration {
+    margin: 134px 0 16px;
+  }
+
   .auth__caption {
     position: static;
+    font-size: 14px;
   }
 
 }
@@ -164,7 +192,7 @@
   }
 
   .auth__btn {
-    position: absolute;
+    position: fixed;
     bottom: 103px;
 
     margin: 0;
@@ -172,8 +200,12 @@
     cursor: pointer;
   }
 
+  .auth__btn_registration {
+    margin: 0;
+  }
+
   .auth__caption {
-    position: absolute;
+    position: fixed;
     bottom: 70px;
   }
 

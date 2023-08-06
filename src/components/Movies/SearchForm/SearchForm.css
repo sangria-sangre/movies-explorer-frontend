@@ -51,11 +51,12 @@
   border-radius: 48px;
   border: none;
   opacity: 1;
-  transition: background-color 0.5s ease-in-out;
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .search__btn:hover {
-  background-color: #575757;
+  opacity: 0.8;
 }
 
 .search-form__line {

@@ -24,6 +24,11 @@
   line-height: 1.6;
   color: #000000;
   text-decoration: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.nav__main_link:hover {
+  opacity: 0.8;
 }
 
 .nav__main_signin {
@@ -48,6 +53,9 @@
 }
 
 .nav__img-menu {
+  width: 40px;
+  height: 43px;
+
   cursor: pointer;
 }
 
@@ -142,24 +150,28 @@
 }
 
 @media screen and (min-width: 768px) {
-  .nav__img-cross {
-    position: absolute;
-    top: 22px;
-    right: 22px;
-  }
+  .nav__main_link {
+    margin-left: 30px;
 
-  .nav__main_text {
-    margin: 0 0 0 30px;
     font-size: 12px;
-    line-height: 1.3;
   }
 
   .nav__main_signin {
     padding: 8px 20px;
   }
 
+  .nav__img-menu {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidebar__img-cross {
+    top: 27px;
+    right: 27px;
+  }
+
   .nav__login_sidebar {
-    min-width: 580px;
+    min-width: 520px;
     grid-template-columns: 1fr;
     grid-template-rows: 181px repeat(2, 22px) auto;
     grid-row-gap: 28px;
@@ -171,7 +183,6 @@
 }
 
 @media screen and (min-width: 1280px) {
-
   .nav__img-menu {
     display: none;
   }
