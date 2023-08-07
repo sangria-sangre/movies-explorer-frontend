@@ -7,15 +7,15 @@ function Portfolio() {
       <ul className="portfolio__list">
         <li className="portfolio__part">
           <h3 className="portfolio__subtitle">Статичный сайт</h3>
-          <a className="portfolio__link" href="/" alt="arrow">↗</a>
+          <a className="portfolio__link" href="/" alt="arrow"  target="_blank" rel="noopener noreferrer">↗</a>
         </li>
         <li className="portfolio__part">
           <h3 className="portfolio__subtitle">Адаптивный сайт</h3>
-          <a className="portfolio__link" href="/" alt="arrow">↗</a>
+          <a className="portfolio__link" href="/" alt="arrow"  target="_blank" rel="noopener noreferrer">↗</a>
         </li>
         <li className="portfolio__part">
           <h3 className="portfolio__subtitle">Одностраничное приложение</h3>
-          <a className="portfolio__link" href="/" alt="arrow">↗</a>
+          <a className="portfolio__link" href="/" alt="arrow"  target="_blank" rel="noopener noreferrer">↗</a>
         </li>
       </ul>
     </section>

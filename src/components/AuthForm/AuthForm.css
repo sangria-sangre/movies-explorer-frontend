@@ -180,6 +180,13 @@
 
   .auth__caption {
     position: static;
+  }
+
+  .caption__title {
+    font-size: 14px;
+  }
+
+  .caption__btn {
     font-size: 14px;
   }
 

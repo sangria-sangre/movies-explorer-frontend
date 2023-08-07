@@ -127,7 +127,16 @@
   .about-me__box {
     display: grid;
     grid-template-columns: auto 270px;
-    grid-template-rows: 76px 44px auto 17px;
+    grid-template-rows: 76px 46px auto 17px;
+  }
+
+  .about-me__subtitle {
+    font-size: 50px;
+    letter-spacing: -2px;
+  }
+
+  .about-me__caption {
+    font-size: 18px;
   }
 
   .about-me__text {
@@ -135,8 +144,8 @@
   }
 
   .about-me__image {
-    max-width: 255px;
-    max-height: 307px;
+    max-width: 270px;
+    max-height: 327px;
 
     grid-column: 2 / 3;
     grid-row: 1 / 5;
