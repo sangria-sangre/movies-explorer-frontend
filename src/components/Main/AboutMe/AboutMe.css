@@ -1,0 +1,153 @@
+.about-me {
+  margin: 0;
+  padding: 70px 14px;
+
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+.about-me__title {
+  margin: 0 0 60px;
+  padding: 0 0 28px;
+
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.72px;
+  border-bottom: 1px solid #000000;
+}
+
+.about-me__box {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 392px 56px 36px auto 17px;
+  column-gap: 49px;
+}
+
+.about-me__image {
+  max-height: 352px;
+
+  justify-self: center;
+
+  border-radius: 10px;
+}
+
+.about-me__subtitle {
+  margin: 0;
+  padding: 0;
+
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+}
+
+.about-me__caption {
+  margin: 0;
+  padding: 0;
+
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.about-me__text {
+  margin: 0 0 40px;
+  padding: 0;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.about-me__link {
+  margin: 0;
+  padding: 0;
+
+  max-width: max-content;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.about-me__link:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .about-me {
+    padding: 90px 50px;
+  }
+
+  .about-me__title {
+    margin: 0 0 66px;
+    padding: 0 0 23px;
+
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+
+  .about-me__box {
+    display: grid;
+    grid-template-columns: auto 255px;
+    grid-template-rows: 56px 38px auto 20px;
+    column-gap: 49px;
+  }
+
+  .about-me__image {
+    max-width: 255px;
+    max-height: 307px;
+
+    grid-column: 2 / 3;
+    grid-row: 1 / 5;
+  }
+
+  .about-me__subtitle {
+    font-size: 40px;
+    letter-spacing: -1.6px;
+  }
+
+  .about-me__text {
+    max-width: 600px;
+
+    font-size: 12px;
+  }
+
+  .about-me__caption {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .about-me {
+    padding: 110px 70px 101px;
+  }
+
+  .about-me__box {
+    display: grid;
+    grid-template-columns: auto 270px;
+    grid-template-rows: 76px 46px auto 17px;
+  }
+
+  .about-me__subtitle {
+    font-size: 50px;
+    letter-spacing: -2px;
+  }
+
+  .about-me__caption {
+    font-size: 18px;
+  }
+
+  .about-me__text {
+    font-size: 14px;
+  }
+
+  .about-me__image {
+    max-width: 270px;
+    max-height: 327px;
+
+    grid-column: 2 / 3;
+    grid-row: 1 / 5;
+  }
+}
