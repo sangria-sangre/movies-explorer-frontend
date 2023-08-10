@@ -10,21 +10,10 @@ function Profile(props) {
   const defaultUserData = React.useContext(UserDataContext);
   const [inputStatus, setInputStatus] = React.useState(true);
   const { values, handleChange, errors, inputVilidities } = useValidator();
-  const [userInfo, setUserInfo] = React.useState('');
+  const [dataUserBeforePost, setdataUserBeforePost] = React.useState('');
 
   React.useEffect(() => {
-    if (userInfo === '') {
-      mainApi.postUserInfo(values.email, values.text)
-        .then((data) => {
-          localStorage.setItem('userData', JSON.stringify(data));
-          setUserInfo(data);
-          props.popupOpen('saveDataProfile')
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-    setUserInfo(JSON.parse(localStorage.getItem('userData')));
+    setdataUserBeforePost(defaultUserData);
   }, []);
 
   function onSignOut() {
@@ -34,11 +23,20 @@ function Profile(props) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!inputStatus) {
+      if (values.text === undefined) {
+        values.text = dataUserBeforePost.text;
+      } else if (values.email === undefined) {
+        values.email = dataUserBeforePost.email;
+      }
       mainApi.postUserInfo(values.email, values.text)
         .then((data) => {
           localStorage.setItem('userData', JSON.stringify(data));
-          setUserInfo(data);
-          props.popupOpen('saveDataProfile')
+          props.setUserData(data);
+          props.popupOpen('saveDataProfile');
+          return data;
+        })
+        .then((data) => {
+          setdataUserBeforePost(data);
         })
         .catch(err => {
           console.log(err);
@@ -55,11 +53,11 @@ function Profile(props) {
     <>
       <Header login={props.loggedIn} />
       <section className="profile">
-        <h2 className="profile__title">Привет, {values.text  ||  defaultUserData.name}!</h2>
+        <h2 className="profile__title">Привет, {dataUserBeforePost.name}!</h2>
         <form className="profile__form" name="profile" action="get" noValidate >
           <h3 className="profile__form_title">Имя</h3>
           <input type="text" name="text" id="text" required minLength="2" maxLength="40"
-            onChange={handleChange} value={values.text || defaultUserData.name || ''}
+            onChange={handleChange} value={values.text || dataUserBeforePost.name || ''}
             className={`profile__form_input ${inputVilidities.text || inputVilidities.text === undefined ? "" : "profile__input_error"}`}
             placeholder="Имя" readOnly={inputStatus} />
           <span className="profile__form_error">{errors.text}</span>
@@ -68,7 +66,7 @@ function Profile(props) {
 
           <h3 className="profile__form_title">E-mail</h3>
           <input type="email" name="email" id="email" required minLength="2" maxLength="40"
-            onChange={handleChange} value={values.email || defaultUserData.email || ''}
+            onChange={handleChange} value={values.email || dataUserBeforePost.email || ''}
             className={`profile__form_input ${inputVilidities.email || inputVilidities.email === undefined ? "" : "profile__input_error"}`}
             placeholder="Email" readOnly={inputStatus} />
           <span className="profile__form_error  profile__form_error-email">{errors.email}</span>
@@ -84,4 +82,3 @@ function Profile(props) {
 }
 
 export default Profile;
-//${values.email === defaultUserData.email & values.text === defaultUserData.name ? "profile__btn-save_disabled" : ""}
