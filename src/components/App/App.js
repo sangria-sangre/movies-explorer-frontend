@@ -101,7 +101,7 @@ function App() {
             <Route path="/" element={<Main loggedIn={loggedIn} />} />
             <Route path="/movies" element={<ProtectedRoute element={loggedIn ? Movies : Login} loggedIn={loggedIn} popupOpen={togglePopup} setSavedMovies={setSavedMovies} />} />
             <Route path="/saved-movies" element={<ProtectedRoute element={loggedIn ? SavedMovies : Login} loggedIn={loggedIn} popupOpen={togglePopup} setSavedMovies={setSavedMovies} />} />
-            <Route path="/profile" element={<ProtectedRoute element={loggedIn ? Profile : Login} loggedIn={loggedIn} popupOpen={togglePopup} />} />
+            <Route path="/profile" element={<ProtectedRoute element={loggedIn ? Profile : Login} loggedIn={loggedIn} popupOpen={togglePopup} setUserData={setUserData} />} />
             <Route path="/signin" element={<Login handleSubmit={handleSubmitLogin} />} />
             <Route path="/signup" element={<Register handleSubmit={handleSubmitRegister} />} />
             <Route path="/*" element={<NotFound />} />
