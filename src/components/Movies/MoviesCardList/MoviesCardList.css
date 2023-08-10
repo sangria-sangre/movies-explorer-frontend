@@ -12,6 +12,10 @@
   grid-template-rows: auto;
   justify-content: center;
   gap: 14px;
+
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  font-weight: 500;
 }
 
 .card-list__disabled {
@@ -36,6 +40,7 @@
   background: #F9F9F9;
   border: none;
   border-radius: 6px;
+  cursor: pointer;
   transition: background 0.5s ease-in-out;
 }
 

@@ -1,11 +1,11 @@
 import './MoviesCardList.css';
-import MoviesData from './MoviesData';
 import MoviesCard from '../MoviesCard/MoviesCard'
 import React from 'react';
+import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
+
 
 function MoviesCardList(props) {
-
-  const [arr, setArr] = React.useState(MoviesData);
+  const savedMovies = React.useContext(SavedMoviesContext);
   const [defaultQuantity, setDefaultQuantity] = React.useState('');
   const [baseQuantity, setBaseQuantity] = React.useState('');
   const widthScreen = window.matchMedia('(min-width: 320px) and (max-width: 1280px)');
@@ -15,10 +15,15 @@ function MoviesCardList(props) {
 
   React.useEffect(() => {
     checkWindowWidth();
-    if (props.statusMovies === "saved") {
-      setArr(MoviesData.filter((card) => card.like === true));
-    }
   }, []);
+
+  React.useEffect(() => {
+    if (!(props.statusMovies === "saved")) {
+      if (props.moviesList.length > 0) {
+        localStorage.setItem('moviesList', JSON.stringify(props.moviesList));
+      }
+    }
+  }, [props.moviesList]);
 
   widthScreen.addEventListener('change', function () {
     checkWindowWidth();
@@ -48,20 +53,33 @@ function MoviesCardList(props) {
   }
 
   return (
-      <section className="card-list">
-        <div className="cards">
-          {props.statusMovies === "saved" ?
-            arr.filter((card) => card.like === true).slice(0, baseQuantity).map((card, index) => (
-              <MoviesCard title={card.title} img={card.img} duration={card.time}
-                statusMovies="saved" key={index} />
+    <section className="card-list">
+      <div className="cards">
+        {props.statusMovies === "saved" ?
+          props.statusMoviesSearch ?
+            props.searchedMovies.slice(0, baseQuantity).map((card) => (
+              <MoviesCard title={card.nameRU} img={card.image} duration={card.duration} statusMovies="saved"
+                movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} like={card.like} />
             )) :
-            arr.slice(0, baseQuantity).map((card, index) => (
-              <MoviesCard title={card.title} img={card.img} duration={card.time} like={card.like} key={index} />
-            ))
-          }
-        </div>
-        <button className={baseQuantity >= arr.length ? "card-list__disabled" : "card-list__btn"} onClick={showMoreCard} >Ещё</button>
-      </section>
+            savedMovies === '' || savedMovies.length === 0 ? 'Ничего не добавленно' :
+              savedMovies.slice(0, baseQuantity).map((card) => (
+                <MoviesCard title={card.nameRU} img={card.image} duration={card.duration} statusMovies="saved"
+                  movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} like={card.like} />
+              )) :
+          props.moviesList === '' ? '' :
+            props.moviesList.length === 0 ? 'Ничего не найдено' :
+              props.moviesList.slice(0, baseQuantity).map((card) => (
+                <MoviesCard title={card.nameRU} img={`https://api.nomoreparties.co${card.image.url}`} duration={card.duration}
+                  handleSaveMovie={props.handleSaveMovie} movie={card} key={card.id}
+                  handleDeleteMovie={props.handleDeleteMovie} />
+              ))
+        }
+      </div>
+      <button className={
+        props.statusMovies === "saved" ? baseQuantity >= savedMovies.length ? "card-list__disabled" : "card-list__btn" :
+          baseQuantity >= props.moviesList.length ? "card-list__disabled" : "card-list__btn"}
+        onClick={showMoreCard} >Ещё</button>
+    </section>
   );
 }
 

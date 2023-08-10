@@ -2,26 +2,13 @@ import './FilterCheckbox.css';
 
 import React from 'react';
 
-function FilterCheckbox() {
-
-  const [toggleStatus, setToggleStatus] = React.useState('start');
-
-  function toggle() {
-    if (toggleStatus === 'start') {
-      setToggleStatus(true);
-    } else if (toggleStatus) {
-      setToggleStatus(false);
-    } else {
-      setToggleStatus(true);
-    }
-  }
-
+function FilterCheckbox(props) {
   return (
     <div className="filter-checkbox">
       <h3 className="filter-checkbox__title">Короткометражки</h3>
-      <div className="checkbox"  onClick={toggle}>
-        <div className={`checkbox__cirqle ${toggleStatus ?
-          (toggleStatus === 'start') ? "checkbox__cirqle_position-left" :
+      <div className="checkbox"  onClick={props.toggle}>
+        <div className={`checkbox__cirqle ${props.status ?
+          (props.status === 'start') ? "checkbox__cirqle_position-left" :
             "animation-on checkbox__cirqle_position-right" :
           "animation-off checkbox__cirqle_position-left"} `}></div>
       </div>
