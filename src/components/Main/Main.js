@@ -10,7 +10,7 @@ function Main(props) {
 
   return (
     <>
-      <Header login={props.loggedIn} main={true}/>
+      <Header login={props.loggedIn} main={true} />
       <Promo />
       <AboutProject />
       <Techs />

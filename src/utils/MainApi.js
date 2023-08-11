@@ -1,6 +1,8 @@
+import { LINK_BACKEND } from '../constants/constants';
+
 class MainApi {
   constructor() {
-    this._baseUrl = 'https://api.cinemalife.nomoredomains.work';
+    this._baseUrl = LINK_BACKEND;
   }
 
   _getJson(res) {

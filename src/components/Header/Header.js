@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 function Header(props) {
   return (
-    <header className={ props.main ? "header background-pink" : "header"}>
+    <header className={props.main ? "header background-pink" : "header"}>
       <Link className="header__logo" to="/">
         <img src={logo} alt="Logo" />
       </Link>

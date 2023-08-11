@@ -1,0 +1,9 @@
+export const PATTERN_EMAIL = '[a-zA-Z0-9._-]+@[a-z0-9]+\\.{1,1}[a-z]{2,5}';
+export const LINK_BACKEND = 'https://api.cinemalife.nomoredomains.work';
+export const LINK_MOVIES = 'https://api.nomoreparties.co/beatfilm-movies';
+export const MESSAGE_BADSEARCH = 'Нужно ввести ключевое слово.';
+export const MESSAGE_SERVERERROR = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.';
+export const MESSAGE_AUTHDONE = 'Вы успешно зарегистрировались!';
+export const MESSAGE_AUTHERROR = 'Что-то пошло не так! Попробуйте ещё раз.';
+export const MESSAGE_ERROR409 = 'Пользователь с такими данными уже сущетвует.';
+export const MESSAGE_SAVEDATAPROFILE = 'Данные изменены успешно.';

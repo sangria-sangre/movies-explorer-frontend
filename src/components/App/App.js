@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../Movies/SavedMovies/SavedMovies';
@@ -16,10 +15,11 @@ import { UserDataContext } from '../../context/UserDataContext';
 
 function App() {
   const navigate = useNavigate();
+  const [isJwtChecked, setIsJwtChecked] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState(false);
   const [isPopupOpen, setPopupOpen] = React.useState(false);
   const [popupTitle, setPopupTitle] = React.useState('');
-  const [loggedIn, setLoggedIn] = React.useState(false);
   const [savedMovies, setSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
@@ -32,16 +32,33 @@ function App() {
     if (jwt) {
       mainApi.getContent(jwt)
         .then((res) => {
-          if (res) {
-            setUserData(res);
-            localStorage.setItem('userData', JSON.stringify(res));
-            if(!loggedIn){
-            setLoggedIn(true);}
-          }
+          setLoggedIn(true);
+          setUserData(res);
+          localStorage.setItem('userData', JSON.stringify(res));
         }).catch(err => {
           console.log(err);
+          togglePopup("serverError");
+        })
+        .finally(() => {
+          setIsJwtChecked(true);
         });
+    } else {
+      setIsJwtChecked(true);
+      setLoggedIn(false);
     }
+  }
+
+  function updateUserData(jwt) {
+    mainApi.getContent(jwt)
+      .then((res) => {
+        if (res) {
+          setUserData(res);
+          localStorage.setItem('userData', JSON.stringify(res));
+        }
+      }).catch(err => {
+        console.log(err);
+        togglePopup("serverError");
+      });
   }
 
   function handleSubmitLogin(email, password) {
@@ -53,6 +70,7 @@ function App() {
     mainApi.authorize(email, password)
       .then((data) => {
         if (data.token) {
+          updateUserData(data.token);
           localStorage.setItem('jwt', data.token);
           return data;
         }
@@ -73,42 +91,57 @@ function App() {
     mainApi.register(name, email, password)
       .then(() => {
         togglePopup('authDone');
+        handleSubmitLogin(email, password);
       })
       .catch(err => {
         console.log(err);
-        togglePopup(err);
+        togglePopup("serverError");
       })
   }
 
+  function handleSignOut() {
+    setLoggedIn(false);
+    localStorage.clear();
+  }
+
   function togglePopup(title) {
-    if (isPopupOpen) {
-      setPopupOpen(false);
-      if (popupTitle === 'authDone') {
-        navigate('/signin', { replace: true });
-      }
-    } else {
-      setPopupTitle(title);
-      setPopupOpen(true);
-    }
+    if (title) setPopupTitle(title);
+    setPopupOpen(!isPopupOpen);
   }
 
 
   return (
     <div className='body'>
-      <SavedMoviesContext.Provider value={savedMovies}>
-        <UserDataContext.Provider value={userData}>
-          <Routes>
-            <Route path="/" element={<Main loggedIn={loggedIn} />} />
-            <Route path="/movies" element={<ProtectedRoute element={loggedIn ? Movies : Login} loggedIn={loggedIn} popupOpen={togglePopup} setSavedMovies={setSavedMovies} />} />
-            <Route path="/saved-movies" element={<ProtectedRoute element={loggedIn ? SavedMovies : Login} loggedIn={loggedIn} popupOpen={togglePopup} setSavedMovies={setSavedMovies} />} />
-            <Route path="/profile" element={<ProtectedRoute element={loggedIn ? Profile : Login} loggedIn={loggedIn} popupOpen={togglePopup} setUserData={setUserData} />} />
-            <Route path="/signin" element={<Login handleSubmit={handleSubmitLogin} />} />
-            <Route path="/signup" element={<Register handleSubmit={handleSubmitRegister} />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </UserDataContext.Provider>
-      </SavedMoviesContext.Provider>
-      <InfoTooltrip isOpen={isPopupOpen} toggle={togglePopup} popupTitle={popupTitle} />
+      {!isJwtChecked ? '' :
+        <>
+          <SavedMoviesContext.Provider value={savedMovies}>
+            <UserDataContext.Provider value={userData}>
+              <Routes>
+                <Route path="/" element={<Main loggedIn={loggedIn} />} />
+
+                <Route path="/movies"
+                  element={<ProtectedRoute loggedIn={loggedIn}>
+                    <Movies popupOpen={togglePopup} setSavedMovies={setSavedMovies} loggedIn={loggedIn} />
+                  </ProtectedRoute>} />
+
+                <Route path="/saved-movies"
+                  element={<ProtectedRoute loggedIn={loggedIn}>
+                    <SavedMovies popupOpen={togglePopup} setSavedMovies={setSavedMovies} loggedIn={loggedIn} />
+                  </ProtectedRoute>} />
+
+                <Route path="/profile"
+                  element={<ProtectedRoute loggedIn={loggedIn}>
+                    <Profile popupOpen={togglePopup} setUserData={setUserData} handleSignOut={handleSignOut} loggedIn={loggedIn} />
+                  </ProtectedRoute>} />
+
+                <Route path="/signin" element={<Login handleSubmit={handleSubmitLogin} />} />
+                <Route path="/signup" element={<Register handleSubmit={handleSubmitRegister} />} />
+                <Route path="/*" element={<NotFound />} />
+              </Routes>
+            </UserDataContext.Provider>
+          </SavedMoviesContext.Provider><InfoTooltrip isOpen={isPopupOpen} toggle={togglePopup} popupTitle={popupTitle} />
+        </>
+      }
     </div>
   );
 }

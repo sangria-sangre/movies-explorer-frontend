@@ -12,11 +12,22 @@
   overflow: hidden;
 }
 
+.promo:before {
+  content: "";
+  background-color: #F3C1F8;
+  position: absolute;
+  top: 74px;
+  height: 630px;
+  width: 4000px;
+  left: -2000px;
+  z-index: -1;
+}
+
 .promo__title {
   margin: 0 0 60px;
   padding: 0;
 
-  max-width: 680px;
+  max-width: 560px;
 
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 31px;

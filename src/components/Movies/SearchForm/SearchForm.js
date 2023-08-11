@@ -10,10 +10,17 @@ function SearchForm(props) {
   const [submit, setSubmit] = React.useState(false);
 
   React.useEffect(() => {
-    if ((localStorage.getItem('statusCheckbox'))) {
-      setStatusCheckbox(JSON.parse(localStorage.getItem('statusCheckbox')));
+    if (props.statusSaveSearch) {
+      if ((localStorage.getItem('statusCheckbox'))) {
+        setStatusCheckbox(JSON.parse(localStorage.getItem('statusCheckbox')));
+        values.film = JSON.parse(localStorage.getItem('request'));
+        setSubmit(true);
+      }
+    } else {
+      setStatusCheckbox(false);
+      values.film = '';
+      setSubmit(false);
     }
-    setSubmit(false);
   }, []);
 
   function handleSubmit(e) {
@@ -38,7 +45,7 @@ function SearchForm(props) {
       <form className={`search__form ${inputVilidities.film || inputVilidities.film === undefined ? "" : "search__form_error"}`} onSubmit={handleSubmit} action="get" name="search" noValidate>
         <input className="search__input"
           type="text" name="film" id="film" placeholder="Фильмы" minLength="1"
-          value={values.film || ""} onChange={handleChange} required />
+          value={ values.film || ""} onChange={handleChange} required />
         <button className="search__btn" type="submit" >
           <img className="search__btn_img" src={loupe} alt="loupe" />
         </button>

@@ -57,21 +57,24 @@ function MoviesCardList(props) {
       <div className="cards">
         {props.statusMovies === "saved" ?
           props.statusMoviesSearch ?
-            props.searchedMovies.slice(0, baseQuantity).map((card) => (
-              <MoviesCard title={card.nameRU} img={card.image} duration={card.duration} statusMovies="saved"
-                movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} like={card.like} />
-            )) :
+            props.searchedMovies.length === 0 ? 'Ничего не найдено' :
+              props.searchedMovies.slice(0, baseQuantity).map((card) => (
+                <MoviesCard title={card.nameRU} img={card.image} duration={card.duration} statusMovies="saved"
+                  movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} setSavedMovies={props.setSavedMovies}
+                  popupOpen={props.popupOpen} />
+              )) :
             savedMovies === '' || savedMovies.length === 0 ? 'Ничего не добавленно' :
               savedMovies.slice(0, baseQuantity).map((card) => (
                 <MoviesCard title={card.nameRU} img={card.image} duration={card.duration} statusMovies="saved"
-                  movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} like={card.like} />
+                  movie={card} key={card._id} handleDeleteMovie={props.handleDeleteMovie} setSavedMovies={props.setSavedMovies}
+                  popupOpen={props.popupOpen} />
               )) :
           props.moviesList === '' ? '' :
             props.moviesList.length === 0 ? 'Ничего не найдено' :
               props.moviesList.slice(0, baseQuantity).map((card) => (
                 <MoviesCard title={card.nameRU} img={`https://api.nomoreparties.co${card.image.url}`} duration={card.duration}
-                  handleSaveMovie={props.handleSaveMovie} movie={card} key={card.id}
-                  handleDeleteMovie={props.handleDeleteMovie} />
+                  handleSaveMovie={props.handleSaveMovie} movie={card} key={card.id} handleDeleteMovie={props.handleDeleteMovie}
+                  setSavedMovies={props.setSavedMovies} popupOpen={props.popupOpen} />
               ))
         }
       </div>

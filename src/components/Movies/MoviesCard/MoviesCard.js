@@ -3,6 +3,7 @@ import like from '../../../images/like.svg';
 import likeActive from '../../../images/like-active.svg';
 import iconDelete from '../../../images/card-delete.svg';
 import React from 'react';
+import mainApi from '../../../utils/MainApi';
 import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
 
 function MoviesCard(props) {
@@ -11,21 +12,49 @@ function MoviesCard(props) {
 
   function togleLike() {
     if (statuslike) {
-      setStatuslike(false);
       const movie = savedMovies.find((movie) => {
         if (String(movie.movieId) === String(props.movie.id)) {
           return movie;
         }
       })
-      props.handleDeleteMovie(movie._id);
+      handleDeleteMovie(movie._id);
     } else {
-      setStatuslike(true);
-      props.handleSaveMovie(props.movie);
+      handleSaveMovie(props.movie);
     }
   }
 
   function deleteCard() {
-    props.handleDeleteMovie(props.movie._id);
+    handleDeleteMovie(props.movie._id);
+  }
+
+  function handleDeleteMovie(movieId) {
+    mainApi.deleteMovie(movieId)
+      .then((res) => {
+        let arr = savedMovies.filter((movie) => {
+          if (movie._id !== res._id) {
+            return movie;
+          }
+          return;
+        });
+        props.setSavedMovies(arr);
+      })
+      .catch((err) => {
+        console.log(err);
+        props.popupOpen("serverError");
+      })
+  }
+
+  function handleSaveMovie(movie) {
+    mainApi.saveMovie(movie)
+      .then((res) => {
+        setStatuslike(true);
+        props.setSavedMovies([res, ...savedMovies]);
+        console.log(res, savedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        props.popupOpen("serverError");
+      })
   }
 
   return (

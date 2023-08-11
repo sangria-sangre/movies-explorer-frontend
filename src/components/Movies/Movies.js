@@ -6,7 +6,6 @@ import Preloader from './Preloader/Preloader'
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import { filterMovies } from '../../utils/utils';
-import mainApi from '../../utils/MainApi';
 import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 
 function Movies(props) {
@@ -15,11 +14,10 @@ function Movies(props) {
   const [movies, setMovies] = React.useState('');
   const [moviesList, setMoviesList] = React.useState('');
 
-
   React.useEffect(() => {
     if (localStorage.getItem('request')) {
       if (localStorage.getItem('moviesList')) {
-        new Promise((resolve, reject) => {
+        new Promise((resolve) => {
           resolve(setIsLoading(true));
         })
           .then(() => {
@@ -44,62 +42,35 @@ function Movies(props) {
     localStorage.setItem('statusCheckbox', JSON.stringify(statusCheckbox));
     localStorage.setItem('request', JSON.stringify(data));
     setIsLoading(true);
-    console.log(moviesList);
-    if(moviesList.length !== 100){
-    moviesApi.getMovies()
-      .then((moviesList) => {
-        setMoviesList(moviesList);
-        return moviesList;
-      })
-      .then((moviesList) => {
-        setMovies(filterMovies(moviesList, data, statusCheckbox, savedMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-        props.popupOpen("serverError");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (moviesList.length !== 100) {
+      moviesApi.getMovies()
+        .then((moviesList) => {
+          setMoviesList(moviesList);
+          return moviesList;
+        })
+        .then((moviesList) => {
+          setMovies(filterMovies(moviesList, data, statusCheckbox, savedMovies));
+        })
+        .catch((err) => {
+          console.log(err);
+          props.popupOpen("serverError");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     } else {
       setMovies(filterMovies(moviesList, data, statusCheckbox, savedMovies));
       setIsLoading(false);
     }
-
   }
 
-  function handleSaveMovie(movie) {
-    mainApi.saveMovie(movie)
-      .then((res) => {
-        props.setSavedMovies([res, ...savedMovies]);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  function handleDeleteMovie(movieId) {
-    mainApi.deleteMovie(movieId)
-      .then((res) => {
-        let arr = savedMovies.filter((movie) => {
-          if (movie._id !== res._id) {
-            return movie;
-          }
-          return;
-        });
-        props.setSavedMovies(arr);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
 
   return (
     <>
       <Header login={props.loggedIn} />
-      <SearchForm onSubmit={handleSearchMovie} popupOpen={props.popupOpen} />
+      <SearchForm onSubmit={handleSearchMovie} popupOpen={props.popupOpen} statusSaveSearch={true} />
       <Preloader status={isLoading} />
-      {isLoading ? '' : <MoviesCardList moviesList={movies} handleSaveMovie={handleSaveMovie} handleDeleteMovie={handleDeleteMovie} />}
+      {isLoading ? '' : <MoviesCardList moviesList={movies} setSavedMovies={props.setSavedMovies} popupOpen={props.popupOpen} />}
       <Footer />
     </>
   );

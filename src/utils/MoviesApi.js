@@ -1,23 +1,23 @@
+import { LINK_MOVIES } from '../constants/constants';
+
 class MoviesApi {
   constructor() {
-      this._baseUrl = 'https://api.nomoreparties.co/beatfilm-movies';
+    this._baseUrl = LINK_MOVIES;
   }
 
   _getJson(res) {
-      if (res.ok) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getMovies() {
-      //const token = localStorage.getItem("jwt");
-      return fetch(`${this._baseUrl}`, {
-          headers: {
-              'Content-Type': 'application/json',
-              //'authorization': `Bearer ${token}`
-          }
-      }).then(this._getJson);
+    return fetch(`${this._baseUrl}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(this._getJson);
   }
 
 }

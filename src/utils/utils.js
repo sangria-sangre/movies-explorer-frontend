@@ -11,15 +11,15 @@ export const filterMovies = (moviesList, movieDesired, statusCheckbox, savedMovi
     }
   });
 
-  if(savedMovies) {
-  moviesDefault.forEach(movie => {
-    let status = savedMovies.some((m) => {
-      if (String(movie.id) === String(m.movieId)) {
-        return m;
-      }
-    })
-    movie.like = status;
-  });
+  if (savedMovies) {
+    moviesDefault.forEach(movie => {
+      let status = savedMovies.some((m) => {
+        if (String(movie.id) === String(m.movieId)) {
+          return m;
+        }
+      })
+      movie.like = status;
+    });
   }
 
   if (statusCheckbox) {

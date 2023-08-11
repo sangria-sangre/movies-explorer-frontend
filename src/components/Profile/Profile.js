@@ -1,10 +1,11 @@
-import './Profile.css'
-import Header from '../Header/Header'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useValidator } from '../../hooks/useValidator';
-import mainApi from '../../utils/MainApi';
 import { UserDataContext } from '../../context/UserDataContext';
+import './Profile.css'
+import Header from '../Header/Header'
+import mainApi from '../../utils/MainApi';
+import { PATTERN_EMAIL } from '../../constants/constants'
 
 function Profile(props) {
   const defaultUserData = React.useContext(UserDataContext);
@@ -15,10 +16,6 @@ function Profile(props) {
   React.useEffect(() => {
     setdataUserBeforePost(defaultUserData);
   }, []);
-
-  function onSignOut() {
-    localStorage.clear();
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,12 +37,13 @@ function Profile(props) {
         })
         .catch(err => {
           console.log(err);
+          props.popupOpen("serverError");
+        })
+        .finally(() => {
+          setInputStatus(true);
         });
-    }
-    if (inputStatus) {
-      setInputStatus(false);
     } else {
-      setInputStatus(true);
+      setInputStatus(false);
     }
   }
 
@@ -68,17 +66,18 @@ function Profile(props) {
           <input type="email" name="email" id="email" required minLength="2" maxLength="40"
             onChange={handleChange} value={values.email || dataUserBeforePost.email || ''}
             className={`profile__form_input ${inputVilidities.email || inputVilidities.email === undefined ? "" : "profile__input_error"}`}
-            placeholder="Email" readOnly={inputStatus} />
+            placeholder="Email" readOnly={inputStatus} pattern={PATTERN_EMAIL} />
           <span className="profile__form_error  profile__form_error-email">{errors.email}</span>
         </form>
         <button className={`profile__btn ${inputStatus ? "profile__btn-edit" : "profile__btn-save"}
         ${(inputStatus ? '' : defaultUserData.email === values.email || values.email === undefined) && (defaultUserData.name === values.text || values.text === undefined) ? "profile__btn-save_disabled" : ""}`} type='submit' onClick={handleSubmit}>
           {inputStatus ? "Редактировать" : "Сохранить"}
         </button>
-        <Link className="profile__btn profile__btn-exit" onClick={onSignOut} to="/signin">Выйти из аккаунта</Link>
+        <Link className="profile__btn profile__btn-exit" onClick={props.handleSignOut} to="/">Выйти из аккаунта</Link>
       </section>
     </>
   );
 }
 
 export default Profile;
+//${values.email === defaultUserData.email & values.text === defaultUserData.name ? "profile__btn-save_disabled" : ""}
