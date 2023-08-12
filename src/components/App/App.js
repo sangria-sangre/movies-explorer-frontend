@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -17,7 +17,7 @@ function App() {
   const navigate = useNavigate();
   const [isJwtChecked, setIsJwtChecked] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userData, setUserData] = React.useState(false);
+  const [userData, setUserData] = React.useState('');
   const [isPopupOpen, setPopupOpen] = React.useState(false);
   const [popupTitle, setPopupTitle] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -34,7 +34,6 @@ function App() {
         .then((res) => {
           setLoggedIn(true);
           setUserData(res);
-          localStorage.setItem('userData', JSON.stringify(res));
         }).catch(err => {
           console.log(err);
           togglePopup("serverError");
@@ -42,6 +41,14 @@ function App() {
         .finally(() => {
           setIsJwtChecked(true);
         });
+
+      mainApi.getMovies()
+      .then((res) => {
+        setSavedMovies(res);
+      }).catch(err => {
+        console.log(err);
+        togglePopup("serverError");
+      })
     } else {
       setIsJwtChecked(true);
       setLoggedIn(false);
@@ -136,7 +143,8 @@ function App() {
 
                 <Route path="/signin" element={<Login handleSubmit={handleSubmitLogin} />} />
                 <Route path="/signup" element={<Register handleSubmit={handleSubmitRegister} />} />
-                <Route path="/*" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
+                <Route path="/404" element={<NotFound />} />
               </Routes>
             </UserDataContext.Provider>
           </SavedMoviesContext.Provider><InfoTooltrip isOpen={isPopupOpen} toggle={togglePopup} popupTitle={popupTitle} />

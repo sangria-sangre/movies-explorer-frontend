@@ -37,6 +37,7 @@ function MoviesCard(props) {
           return;
         });
         props.setSavedMovies(arr);
+        setStatuslike(false);
       })
       .catch((err) => {
         console.log(err);

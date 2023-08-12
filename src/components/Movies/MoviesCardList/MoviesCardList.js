@@ -17,14 +17,6 @@ function MoviesCardList(props) {
     checkWindowWidth();
   }, []);
 
-  React.useEffect(() => {
-    if (!(props.statusMovies === "saved")) {
-      if (props.moviesList.length > 0) {
-        localStorage.setItem('moviesList', JSON.stringify(props.moviesList));
-      }
-    }
-  }, [props.moviesList]);
-
   widthScreen.addEventListener('change', function () {
     checkWindowWidth();
   });

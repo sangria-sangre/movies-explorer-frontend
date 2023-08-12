@@ -1,4 +1,4 @@
-export const PATTERN_EMAIL = '[a-zA-Z0-9._-]+@[a-z0-9]+\\.{1,1}[a-z]{2,5}';
+export const PATTERN_EMAIL = '[a-zA-Z0-9_.]+@[a-zA-Z0-9_]+\\.{1,1}[a-z]{2,}';
 export const LINK_BACKEND = 'https://api.cinemalife.nomoredomains.work';
 export const LINK_MOVIES = 'https://api.nomoreparties.co/beatfilm-movies';
 export const MESSAGE_BADSEARCH = 'Нужно ввести ключевое слово.';

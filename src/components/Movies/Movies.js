@@ -12,44 +12,60 @@ function Movies(props) {
   const savedMovies = React.useContext(SavedMoviesContext);
   const [isLoading, setIsLoading] = React.useState(false);
   const [movies, setMovies] = React.useState('');
-  const [moviesList, setMoviesList] = React.useState('');
 
   React.useEffect(() => {
-    if (localStorage.getItem('request')) {
-      if (localStorage.getItem('moviesList')) {
-        new Promise((resolve) => {
-          resolve(setIsLoading(true));
+    let moviesList = JSON.parse(localStorage.getItem('moviesList'));
+
+    if (moviesList === null) {
+      setIsLoading(true);
+      moviesApi.getMovies()
+        .then((moviesList) => {
+          setMovies(moviesList);
+          localStorage.setItem('moviesList', JSON.stringify(moviesList));
         })
-          .then(() => {
-            let moviesList = JSON.parse(localStorage.getItem('moviesList'));
-            let statusCheckbox = JSON.parse(localStorage.getItem('statusCheckbox'));
-            let request = JSON.parse(localStorage.getItem('request'));
-            setMovies(filterMovies(moviesList, request, statusCheckbox, savedMovies));
-          })
-          .catch((err) => {
-            console.log(err);
-            props.popupOpen("serverError");
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      }
+        .catch((err) => {
+          console.log(err);
+          props.popupOpen("serverError");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else if (movies === '') {
+      setMovies(moviesList);
     }
-  }, [savedMovies]);
+
+    if (localStorage.getItem('request')) {
+      new Promise((resolve) => {
+        resolve(setIsLoading(true));
+      })
+        .then(() => {
+          let statusCheckbox = JSON.parse(localStorage.getItem('statusCheckbox'));
+          let request = JSON.parse(localStorage.getItem('request'));
+          setMovies(filterMovies(moviesList, request, statusCheckbox, savedMovies));
+        })
+        .catch((err) => {
+          console.log(err);
+          props.popupOpen("serverError");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+  }, []);
 
 
   function handleSearchMovie(data, statusCheckbox) {
+    let moviesList = JSON.parse(localStorage.getItem('moviesList'));
     localStorage.setItem('statusCheckbox', JSON.stringify(statusCheckbox));
     localStorage.setItem('request', JSON.stringify(data));
     setIsLoading(true);
-    if (moviesList.length !== 100) {
+    console.log(moviesList);
+    if (moviesList === null) {
       moviesApi.getMovies()
         .then((moviesList) => {
-          setMoviesList(moviesList);
-          return moviesList;
-        })
-        .then((moviesList) => {
           setMovies(filterMovies(moviesList, data, statusCheckbox, savedMovies));
+          localStorage.setItem('moviesList', JSON.stringify(moviesList));
         })
         .catch((err) => {
           console.log(err);

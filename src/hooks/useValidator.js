@@ -24,5 +24,5 @@ export function useValidator(defaultValues = {}, defaultFormValidity = false) {
     [setValues, setErrors, setIsValid, setInputVilidities]
   );
 
-  return { values, handleChange, errors, isValid, resetForm, inputVilidities };
+  return { values, handleChange, errors, isValid, resetForm, inputVilidities, setValues };
 };

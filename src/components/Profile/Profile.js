@@ -10,37 +10,46 @@ import { PATTERN_EMAIL } from '../../constants/constants'
 function Profile(props) {
   const defaultUserData = React.useContext(UserDataContext);
   const [inputStatus, setInputStatus] = React.useState(true);
-  const { values, handleChange, errors, inputVilidities } = useValidator();
+  const { values, handleChange, errors, inputVilidities, isValid, setValues } = useValidator();
   const [dataUserBeforePost, setdataUserBeforePost] = React.useState('');
+  const [dataSendStatus, setDataSendStatus] = React.useState(true);
 
   React.useEffect(() => {
     setdataUserBeforePost(defaultUserData);
   }, []);
 
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!inputStatus) {
+      let name = values.text;
+      let email = values.email;
+
       if (values.text === undefined) {
-        values.text = dataUserBeforePost.text;
+        name = dataUserBeforePost.name;
       } else if (values.email === undefined) {
-        values.email = dataUserBeforePost.email;
+        email = dataUserBeforePost.email;
       }
-      mainApi.postUserInfo(values.email, values.text)
+
+      setDataSendStatus(false);
+      mainApi.postUserInfo(email, name)
         .then((data) => {
           localStorage.setItem('userData', JSON.stringify(data));
-          props.setUserData(data);
           props.popupOpen('saveDataProfile');
           return data;
         })
         .then((data) => {
+          props.setUserData(data);
           setdataUserBeforePost(data);
         })
         .catch(err => {
           console.log(err);
-          props.popupOpen("serverError");
+          props.popupOpen(err);
+          setValues(dataUserBeforePost);
         })
         .finally(() => {
           setInputStatus(true);
+          setDataSendStatus(true);
         });
     } else {
       setInputStatus(false);
@@ -70,8 +79,8 @@ function Profile(props) {
           <span className="profile__form_error  profile__form_error-email">{errors.email}</span>
         </form>
         <button className={`profile__btn ${inputStatus ? "profile__btn-edit" : "profile__btn-save"}
-        ${(inputStatus ? '' : defaultUserData.email === values.email || values.email === undefined) && (defaultUserData.name === values.text || values.text === undefined) ? "profile__btn-save_disabled" : ""}`} type='submit' onClick={handleSubmit}>
-          {inputStatus ? "Редактировать" : "Сохранить"}
+        ${inputStatus ? '' : (dataUserBeforePost.email === values.email || values.email === undefined) & (dataUserBeforePost.name === values.text || values.text === undefined) || (isValid === false) || (dataSendStatus === false) ? "profile__btn-save_disabled" : ""}`} type='submit' onClick={handleSubmit}>
+          {inputStatus ? "Редактировать" : dataSendStatus ? "Сохранить" : "Сохранение..."}
         </button>
         <Link className="profile__btn profile__btn-exit" onClick={props.handleSignOut} to="/">Выйти из аккаунта</Link>
       </section>
@@ -80,4 +89,3 @@ function Profile(props) {
 }
 
 export default Profile;
-//${values.email === defaultUserData.email & values.text === defaultUserData.name ? "profile__btn-save_disabled" : ""}

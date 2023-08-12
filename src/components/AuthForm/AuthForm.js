@@ -22,7 +22,7 @@ function AuthForm(props) {
         <img className="auth__img" src={logo} alt="Logo" />
       </NavLink>
       <h2 className="auth__title" >{props.title}</h2>
-      <form className="auth__form" action="get" name={props.registration ? "registration" : "login"} noValidate onSubmit={handleSubmit} >
+      <form className="auth__form" action="#" name={props.registration ? "registration" : "login"} noValidate onSubmit={handleSubmit} >
         <h3 className={props.registration ? "auth__subtitle" : "auth__none"} >Имя</h3>
         <input required={props.registration ? true : false} type="text" name="text" id="text" minLength="2" maxLength="40"
           onChange={props.registration ? handleChange : () => { }} readOnly={props.registration ? false : true}
@@ -32,13 +32,13 @@ function AuthForm(props) {
         <span className={props.registration ? "auth__error" : "auth__none"}>{errors.text}</span>
 
         <h3 className="auth__subtitle" >E-mail</h3>
-        <input required={true} type="email" name="email" id="email" minLength="2" maxLength="40"
+        <input required type="email" name="email" id="email" minLength="2" maxLength="40" autoComplete="off"
           onChange={handleChange} value={values.email || ""} placeholder="Email" pattern={PATTERN_EMAIL}
           className={`auth__input ${inputVilidities.email || inputVilidities.email === undefined ? "" : "auth__input_error"}`} />
         <span className="auth__error">{errors.email}</span>
 
         <h3 className="auth__subtitle">Пароль</h3>
-        <input required={true} type="password" name="password" id="password" minLength="2" maxLength="40"
+        <input required type="password" name="password" id="password" minLength="2" maxLength="40"
           onChange={handleChange} value={values.password || ""} placeholder="Пароль"
           className={`auth__input ${inputVilidities.password || inputVilidities.password === undefined ? "" : "auth__input_error"}`} />
         <span className="auth__error">{errors.password}</span>
