@@ -60,7 +60,6 @@ function Movies(props) {
     localStorage.setItem('statusCheckbox', JSON.stringify(statusCheckbox));
     localStorage.setItem('request', JSON.stringify(data));
     setIsLoading(true);
-    console.log(moviesList);
     if (moviesList === null) {
       moviesApi.getMovies()
         .then((moviesList) => {
